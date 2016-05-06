@@ -7,5 +7,11 @@ feature 'Creating project' do
 		fill_in 'Description',with: 'First Project'
 		click_button 'Create Project'
 		expect(page).to have_content('Project has been created.')
+		project = Project.where(name: 'Project').first
+		expect(page.current_url).to eql(project_url(project))
+		title = "Project - Projects - Ticketee"
+		expect(page).to have_title(title)
 	end	
+
+	
 end
