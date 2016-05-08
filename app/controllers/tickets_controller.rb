@@ -11,6 +11,15 @@ class TicketsController < ApplicationController
 	def edit
 	end
 
+	def destroy
+		if @ticket.destroy
+			flash[:notice] = "Ticket has been deleted."
+		else
+			flash[:alert] = "Ticket has not been deleted."
+		end
+		redirect_to @project
+	end
+
 	def update
 		if @ticket.update(ticket_params)
 			flash[:notice] = "Ticket has been updated."
