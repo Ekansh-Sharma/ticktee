@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  get '/signin', to: "session#new"
+  post '/signin', to: "session#create"
   root 'projects#index'
   resources :projects do
     resources :tickets
