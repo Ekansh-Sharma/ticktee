@@ -1,10 +1,38 @@
 class ProjectsController < ApplicationController
 	
+	before_action :set_project, only: [:edit,:update,:destroy,:show]
+
 	def index
 		@projects = Project.all
 	end
 	def new
 		@project = Project.new
+	end
+
+	def edit
+		@project = Project.find(params[:id])
+	end
+
+	def update
+		@project = Project.find(params[:id])
+		if @project.update(project_params)
+			flash[:notice] = "Project has been updated."
+			redirect_to @project
+		else
+			flash[:alert] = "Project has not been updated."
+			render 'edit'
+		end
+
+	end
+
+	def destroy
+		@project = Project.find(params[:id])
+		if @project.destroy
+			flash[:notice] = "Project has been destroyed."
+		else
+			flash[:alert] = "Project has not been destroyed."
+		end
+		redirect_to projects_path
 	end
 
 	def create
@@ -21,7 +49,17 @@ class ProjectsController < ApplicationController
 	def show
 		@project = Project.find(params[:id])
 	end
+
 	private
+	def set_project
+		begin
+			@project = Project.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			flash[:alert] = "The project you were looking"+" for could not be found."
+			redirect_to projects_path
+		end
+	end
+
 	def project_params
 		params.require(:project).permit(:name,:description)
 	end
