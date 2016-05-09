@@ -2,10 +2,22 @@ require 'spec_helper'
 
 feature 'Cretaing tickets' do
 	before do
-		FactoryGirl.create(:project,name: 'Google Chrome')
+		project = FactoryGirl.create(:project,name: 'Google Chrome')
+		user = FactoryGirl.create(:user)
+
 		visit '/'
-		click_link 'Google Chrome'
+		click_link project.name
 		click_link 'New Ticket'
+		message = "You need to sign in or sign up before continuing."
+		expect(page).to have_content(message)
+
+		fill_in 'Name',with: user.name
+		fill_in 'Password',with: user.password
+		click_button 'Sign in'
+
+		click_link project.name
+		click_link 'New Ticket'
+
 	end
 
 	scenario 'Creating a ticket' do
