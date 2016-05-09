@@ -1,5 +1,6 @@
 <h1>Show Ticket</h1>
 <div id='ticket'>
+<div id='author'>Created by <%= @ticket.user.email %></div>
 <h2><%= @ticket.title %></h2>
 <%= simple_format(@ticket.description) %>
 </div>

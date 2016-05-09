@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Cretaing tickets' do
+feature 'Creating tickets' do
 	before do
 		project = FactoryGirl.create(:project,name: 'Google Chrome')
 		user = FactoryGirl.create(:user)
@@ -25,6 +25,9 @@ feature 'Cretaing tickets' do
 		fill_in 'Description', with: 'My pages are ugly!'
 		click_button 'Create Ticket'
 		expect(page).to have_content("Ticket has been created.")
+		within "#ticket #author" do
+			expect(page).to have_content("Created by ekanshsharmacse11@gmail.com")
+		end
 	end
 
 	scenario 'Creating a ticket with invalid attributes' do
