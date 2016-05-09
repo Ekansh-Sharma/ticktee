@@ -17,7 +17,7 @@ feature 'Creating tickets' do
 
 		click_link project.name
 		click_link 'New Ticket'
-
+		
 	end
 
 	scenario 'Creating a ticket' do
