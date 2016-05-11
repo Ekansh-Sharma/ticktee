@@ -1,0 +1,21 @@
+!!!
+%html
+	%head
+		%title Ticktee
+		= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+		= javascript_include_tag 'application', 'data-turbolinks-track' => true
+		= csrf_meta_tags
+
+	%body
+		- flash.each do |key,value|
+			.flash{:id => "#{key}"} 
+				= value
+		%nav
+			- if current_user
+				Signed in as #{current_user.email}
+				- admin_only do
+					= link_to 'Admin', admin_root_path
+			
+			= link_to 'Sign in',signin_path
+			= link_to 'Sign up',new_user_path
+		= yield
