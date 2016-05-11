@@ -1,11 +1,11 @@
 - if @project.errors.any?
- 	#error_explanation
-   	%h2
-   		 =pluralize(@project.errors.count, "error")
+	#error_explanation
+		%h2
+   		=pluralize(@project.errors.count, "error")
     	prohibited this project from being saved:
   %ul
-    - @project.errors.full_messages.each do |msg|
-     	%li 
+  	- @project.errors.full_messages.each do |msg|
+    	%li 
      		= msg
 
 = form_for(@project) do |f|
