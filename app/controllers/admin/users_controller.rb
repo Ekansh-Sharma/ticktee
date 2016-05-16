@@ -29,7 +29,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    binding.pry
     if @user == current_user
       flash[:notice] = "You cannot delete yourself!"
     else

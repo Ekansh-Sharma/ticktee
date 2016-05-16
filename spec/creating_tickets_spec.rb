@@ -4,7 +4,9 @@ feature 'Creating tickets' do
 	before do
 		project = FactoryGirl.create(:project,name: 'Google Chrome')
 		user = FactoryGirl.create(:user)
-		@user = user.email
+		define_permission!(user, "view", project)
+		define_permission!(user, "create tickets", project)
+		@email = user.email
 		visit '/'
 		click_link project.name
 		click_link 'New Ticket'
@@ -17,7 +19,7 @@ feature 'Creating tickets' do
 
 		click_link project.name
 		click_link 'New Ticket'
-		
+
 	end
 
 	scenario 'Creating a ticket' do
